@@ -23,6 +23,9 @@ class UniqueInt:
             for i in range(len(seen_integers)):
                 if seen_integers[i]:
                     output_file.write(str(i - 1023) + '\n')
+
+        end_time = time.time()  # added here since readfromnextlline will have been used
+        print(f"Runtime: {end_time - start_time} seconds")  # Print runtime
     
     @staticmethod
     def readNextItemFromFile(line):
@@ -43,5 +46,7 @@ class UniqueInt:
             pass
         
         return None #caught by the try and except block to handle cases without a valid output
+
+
 
 
