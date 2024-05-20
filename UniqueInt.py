@@ -4,7 +4,7 @@ import time
 
 class UniqueInt:
     """initializing class uniqueint"""
-    @staticmethod
+    @staticmethod #used to show that the method belongs to the class but not its instance
     def processFile(inputFilePath, outputFilePath):
         start_time = time.time()  # Start time for runtime tracking
         
