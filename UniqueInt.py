@@ -28,6 +28,8 @@ class UniqueInt:
 
         end_time = time.time()  # added here since readfromnextlline will have been used
         end_memory = psutil.virtual_memory().used  # End memory usage
+
+        memory_used = end_memory - start_memory
         print(f"Runtime: {end_time - start_time} seconds")  # Print runtime
         print(f"Memory used: {memory_used / (1024 * 1024)} MB") 
     
