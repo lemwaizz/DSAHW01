@@ -1,5 +1,4 @@
 """importing required libraries"""
-import resource
 import time
 
 class UniqueInt:
@@ -46,6 +45,15 @@ class UniqueInt:
             pass
         
         return None #caught by the try and except block to handle cases without a valid output
+
+if __name__ == "__main__":
+    import sys
+    if len(sys.argv) != 3:
+        print("Usage: python UniqueInt.py <inputFilePath> <outputFilePath>")
+    else:
+        inputFilePath = sys.argv[1]
+        outputFilePath = sys.argv[2]
+        UniqueInt.processFile(inputFilePath, outputFilePath)
 
 
 
