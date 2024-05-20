@@ -1,47 +1,45 @@
-"""importing required libraries"""
 import time
 import psutil
 import sys
 
 class UniqueInt:
     """initializing class uniqueint"""
-    @staticmethod #used to show that the method belongs to the class but not its instance
+    @staticmethod
     def processFile(inputFilePath, outputFilePath):
         start_time = time.time()  # Start time for runtime tracking
         start_memory = psutil.virtual_memory().used  # Start memory usage
         
-        """multiplying the boolean by false initiates an array with 2048 false integers in this case not seen"""
-        seen_integers = [False] * 2048 #it is initialized as a range
-
-        """reading from file"""
+        seen_integers = set()  # Initialize an empty set to store seen integers
+        
+        # Reading from file
         with open(inputFilePath, 'r') as input_file:
             for line in input_file:
-                integer = UniqueInt.readNextItemFromFile(line) #function to read from next line
+                integer = UniqueInt.readNextItemFromFile(line)  # Read integer from next line
                 if integer is not None:
-                    """adding 1023  to map the integer to the right index"""
-                    seen_integers[integer + 1023] = True  # Mark the integer as seen
+                    seen_integers.add(integer)  # Add integer to set
         
+        # Writing to output file
         with open(outputFilePath, 'w') as output_file:
-            for i in range(len(seen_integers)):
-                if seen_integers[i]:
-                    output_file.write(str(i - 1023) + '\n')
+            for integer in sorted(seen_integers):
+                output_file.write(str(integer) + '\n')
 
-        end_time = time.time()  # added here since readfromnextlline will have been used
+        end_time = time.time()  # End time for runtime tracking
         end_memory = psutil.virtual_memory().used  # End memory usage
 
+        runtime = end_time - start_time
         memory_used = end_memory - start_memory
-        print(f"Runtime: {end_time - start_time} seconds")  # Print runtime
-        print(f"Memory used: {memory_used / (1024 * 1024)} MB") 
-    
+        print(f"Runtime: {runtime} seconds")  # Print runtime
+        print(f"Memory used: {memory_used / (1024 * 1024)} MB")  # Print memory usage
+
     @staticmethod
     def readNextItemFromFile(line):
         if line.strip() == '':  
-            """skipping empty lines"""
+            """Skipping empty lines"""
             return None
         
         spaces = line.strip().split()  
         if len(spaces) != 1:  
-            """skip lines with more than one space to account for the one integer condition"""
+            """Skip lines with more than one space to account for the one integer condition"""
             return None
         
         try:
@@ -51,7 +49,7 @@ class UniqueInt:
         except ValueError:
             pass
         
-        return None #caught by the try and except block to handle cases without a valid output
+        return None  # Caught by the try and except block to handle cases without a valid output
 
 if __name__ == "__main__":
     if len(sys.argv) != 3:
@@ -60,7 +58,3 @@ if __name__ == "__main__":
         inputFilePath = sys.argv[1]
         outputFilePath = sys.argv[2]
         UniqueInt.processFile(inputFilePath, outputFilePath)
-
-
-
-
