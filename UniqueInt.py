@@ -5,7 +5,10 @@ import sys
 class UniqueInt:
     """initializing class uniqueint"""
     @staticmethod
+    #Used to show the method belongs to the class and not an instance of the class.
+    
     def processFile(inputFilePath, outputFilePath):
+        """Define the manipulation for the command line inputs."""
         start_time = time.time()  # Start time for runtime tracking
         start_memory = psutil.virtual_memory().used  # Start memory usage
         
