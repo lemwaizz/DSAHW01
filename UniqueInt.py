@@ -1,11 +1,14 @@
 """importing required libraries"""
 import time
+import psutil
+import sys
 
 class UniqueInt:
     """initializing class uniqueint"""
     @staticmethod #used to show that the method belongs to the class but not its instance
     def processFile(inputFilePath, outputFilePath):
         start_time = time.time()  # Start time for runtime tracking
+        start_memory = psutil.virtual_memory().used  # Start memory usage
         
         """multiplying the boolean by false initiates an array with 2048 false integers in this case not seen"""
         seen_integers = [False] * 2048 #it is initialized as a range
@@ -24,7 +27,9 @@ class UniqueInt:
                     output_file.write(str(i - 1023) + '\n')
 
         end_time = time.time()  # added here since readfromnextlline will have been used
+        end_memory = psutil.virtual_memory().used  # End memory usage
         print(f"Runtime: {end_time - start_time} seconds")  # Print runtime
+        print(f"Memory used: {memory_used / (1024 * 1024)} MB") 
     
     @staticmethod
     def readNextItemFromFile(line):
@@ -47,7 +52,6 @@ class UniqueInt:
         return None #caught by the try and except block to handle cases without a valid output
 
 if __name__ == "__main__":
-    import sys
     if len(sys.argv) != 3:
         print("Usage: python UniqueInt.py <inputFilePath> <outputFilePath>")
     else:
