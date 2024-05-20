@@ -36,7 +36,7 @@ class UniqueInt:
             return None
         
         try:
-            integer = int(parts[0])  
+            integer = int(spaces[0])  
             if -1023 <= integer <= 1023:  
                 return integer
         except ValueError:
